@@ -1,0 +1,239 @@
+##Welcoming and showing the user the instructions of the game##
+print("""
+
+  _                    _                   
+ | |_ ___  _   _   ___| |_ ___  _ __ _   _ 
+ | __/ _ \| | | | / __| __/ _ \| '__| | | |
+ | || (_) | |_| | \__ \ || (_) | |  | |_| |
+  \__\___/ \__, | |___/\__\___/|_|   \__, |
+           |___/                     |___/
+
+DIRECTIONS:
+This game is based on Toy Story, a film about toys that come to 
+life when humans are not present. You're Woody, a cowboy doll 
+and Andy’s (your owner) favorite toy. 
+However, after Andy receiving a new toy "Buzz", both of you fight to be Andy's favorite. 
+
+Choose the option you think will help you become Andy's favorite toy again.\n""")
+
+##Asking the user for an input so the game starts##
+input(prompt = """Are you ready to play? 
+press < ENTER > to continue.\n""")
+
+#defining the first scene
+def scene1(): 
+    print("""Scene 1 – Andy’s bedroom
+    Andy just got a brand-new toy, a space ranger named Buzz Lightyear. 
+    You are watching how Andy is playing with Buzz and you think he is he's new favorite toy.
+
+    What do you do? You can choose to:\n""")
+#Asking the user to pick his first option##
+    print("""
+    A)Be happy for Andy and welcome Buzz to the toy collection. 
+    B)Be jealous of Buzz and try to sabotage him.\n""")
+    
+    choice = input(prompt = '<').lower()
+    
+    if choice == "a" or "welcome" in choice or "happy" in choice:
+        scene2A() #this moves to next scene
+    
+    elif choice == "b" or "sabotage" in choice or "jealous" in choice:
+        scene2B() #this moves to next scene
+        
+    else:
+        print("""Invalid entry. Please input A or B \n""")
+        input(prompt = '<Press any key to continue>\n')
+        scene1()
+
+
+##defining the secound scene from option A ##
+## importing random package
+import random
+
+color_lst = ["red", "blue", "green", "yellow", "orange"]
+def scene2A():
+    print("""Scene 2 - Livingroom 
+    Andy is in the livingroom playing with you and Buzz, his 2 favorite toys. 
+    You are happy to be playing together, but Buzz wants to be the only one. 
+    Andy leaves for a while to help his mom in the kitchen and Buzz takes his chance 
+    and locks you in Molly's (Andy's sister) toy safe box. 
+    
+    You can open it from the inside using a button, you see 5 different color buttons,
+    but only one gets you outside.You have 3 tries, by the 4th, you're lock inside forever... """)
+    
+    print("""\n What is your guess?\n>""")
+    for color in color_lst:
+        print(color)
+
+    ## declaring objects
+    colors = random.choice(color_lst)
+    chances = 3
+
+    ## while loop to give the user 3 chances 
+    while chances > 0:
+        choice = input(prompt = '<').lower()
+    
+        ##taking away a chance
+        chances -=1
+
+        ##conditional statement 
+        if choice == colors:
+            scene3A_A() #this moves to the next scene
+
+        elif choice != colors:
+            if chances > 0:
+                print(f"Oh no, you missed. You have {chances} guesses remaining.")
+
+            elif chances == 0:
+                print(f"You are out of guesses. The color was {colors}.")
+                fail() #this moves the user to the fail page
+            else:
+                print("choose a color (red, blue, green, yellow or orange).")
+        else:
+            print("\nSomething went wrong.")
+            input("""press < ENTER > to continue.\n""")
+            scene2A()
+
+
+def scene3A_A():
+    print("""Scene 3
+    Hooray! You got out of the safe! Now go find Andy!""")   
+    win()##sending the user to the win scene.
+    
+##defining the secound scene from option B ##
+def scene2B():
+    print("""Scene 2 - Andy's backyard
+    You’re jealous of Buzz and you want to get rid of him. 
+    You know that Sid (Andy's neighbor) is always looking for toys to destroy 
+    and you want to take Buzz to the Sid's house. 
+    What do you do?""")
+
+#Asking the user to pick an option##
+    print("""
+    A) Trick Buzz into going there by himself 
+    B) Kidnap him and drag him all the way to the house\n""")
+
+    choice = input(prompt = '<').lower()
+
+    if choice == "a" or "trick" in choice:
+        scene3B_A() #this moves to next scene
+
+    elif choice == "b" or 'kidnap' in choice or "drag" in choice:
+        scene3B_B() #this moves to next scene
+
+    else:
+        print("""Invalid entry. Press A or B \n""")
+        input("""press < ENTER > to continue.\n""")
+        scene2B()
+        
+##creating the list
+characters_lst = ["rex", "slinky dog","hamm"]
+
+##defining the secound scene from option B ##   
+def scene3B_A():
+    print("""Scene 3 - Andy's Livingroom
+    You go find Buzz in the livingrooom and you tell him that Andy is so sad because 
+    he left one of his toys there and because he is able to fly. n""")
+
+    print("""\n Which toy would Buzz want to rescue?\n>""")
+    for characters in characters_lst:
+        print(characters)
+
+    ## declaring objects
+    characters = random.choice(characters_lst)
+    chances = 2
+    
+    ## while loop to give the user 2 chances 
+    while chances > 0:
+        choice = input(prompt = '<').lower()
+    
+        ##taking away a chance
+        chances -=1
+
+        ##conditional statement 
+        if choice == characters:
+            print(""""You did it! You convince of Buzz going to Sid house and 
+            now he will never be able to come back""")
+            win() #this moves to the next scene
+
+        elif choice != characters:
+            if chances > 0:
+                print(f"Oh no, you missed. You have {chances} guesses remaining.")
+            else:
+                print(f"You are out of guesses. The character was {characters}.")
+                fail() #this moves the user to the fail page
+        else:
+            print("\nSomething went wrong.")
+            input("""press < ENTER > to continue.\n""")
+            scene3B_A()
+
+##creating the list
+door_lst = ["left", "center","right"]
+
+##defining the third and final scene from option B, option B##
+def scene3B_B():
+    print("""Scene 3 - Sid's House
+    You kidnap Buzz, you're using all your strength to pull him up the stairs in Sid's house 
+    and taking him to Sid's room. However, you arrive upstairs and see 3 different doors, 
+    you need to get into the right one. You have 5 secounds to decide as you hear someone coming.""") 
+    input(prompt = """"press < ENTER > to continue.\n""")
+
+    from time import sleep
+    #counting to 5
+    count = 5
+
+    while count > 0:
+        count -= 1
+
+        print(f"time: {count}")
+        sleep(1)
+    for door in door_lst:
+        print(door)
+        
+    #taking user imput and checking for win/loss
+    choice = input(prompt = '<').lower()
+
+    ## declaring objects
+    door = random.choice(door_lst)
+
+    ##conditional statement 
+    if choice == door:
+        print("You did it! You chose the right room and now Buzz with get distroyed.")
+        win() #this moves to the next scene
+
+    elif choice != door:
+        print("Oh no, you missed. You were found by Sid and he will distroy you both.")
+        fail() 
+
+    else:
+        print("""choose a door (Left, Center or Right).""")
+
+def win():
+    print("""Congrats! You won! 
+    Thank you for playing! I hope you had fun!
+    do you want to play again? (yes/no)\n""")
+    
+    choice = input(prompt = '<').lower()
+    if choice == "yes":
+        scene1() #this will restart the game
+    
+    elif choice == "no":
+        print("""No worries, thank you for playing :).""")
+    else:
+        print("""Invalid entry. Please input "yes" or "no".""")
+
+def fail():
+    print(""""Sorry, you fail and didn't got Andy Back
+    do you want to play again? (yes/no)\n""")
+
+    choice = input(prompt = '<').lower()
+    if choice == "yes":
+        scene1() #this will restart the game
+
+    elif choice == "no":
+        print("""No worries, thank you for playing :).""")
+
+    else:
+        print(prompt= """Invalid entry. Please input "yes" or "no".""")
+        
+scene1()
